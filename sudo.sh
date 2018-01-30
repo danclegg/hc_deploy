@@ -16,6 +16,7 @@ echo -e "127.0.1.1\thc_$serial" >> /etc/hosts
 
 # Install Salt-Minion on Pi and configure minion to talk to the salt-master
 wget -O - https://repo.saltstack.com/apt/debian/8/armhf/latest/SALTSTACK-GPG-KEY.pub | sudo apt-key add -
+curl https://raw.githubusercontent.com/danclegg/hc_deploy/feature/setup-sh/files/saltstack.list > /etc/apt/sources.list.d/saltstack.list
 
 # Perform general updating
 apt update
