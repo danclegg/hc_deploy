@@ -8,7 +8,7 @@ date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' 
 export serial=`cat /proc/cpuinfo | grep Serial | cut -d ' ' -f 2`
 
 # Fix the keyboard layout
-curl https://raw.githubusercontent.com/byuoitav/raspi-deployment-microservice/master/files/keyboard > /etc/default/keyboard
+curl https://raw.githubusercontent.com/danclegg/hc_deploy/feature/setup-sh/files/keyboard > /etc/default/keyboard
 
 # Set hostname
 echo -e "hc_$serial" > /etc/hostname
