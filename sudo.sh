@@ -38,3 +38,8 @@ systemctl restart salt-minion
 
 # Patch the Dirty COW kernel vulnerability
 # apt -y install raspberrypi-kernel
+
+# Enable SSH connections
+touch /boot/ssh
+curl https://raw.githubusercontent.com/danclegg/hc_deploy/feature/setup-sh/files/sshbanner > /etc/sshbanner
+sed -ie 's/#Banner \/etc\/issue.net/Banner \/etc\/sshbanner/g' /etc/ssh/sshd_config
