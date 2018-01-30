@@ -1,0 +1,11 @@
+# KEYBOARD CONFIGURATION FILE
+# Sourced from https://raw.githubusercontent.com/byuoitav/raspi-deployment-microservice/master/files/keyboard
+
+# Consult the keyboard(5) manual page.
+
+XKBMODEL="pc105"
+XKBLAYOUT="us"
+XKBVARIANT=""
+XKBOPTIONS=""
+
+BACKSPACE="guess"
