@@ -43,3 +43,20 @@ systemctl restart salt-minion
 touch /boot/ssh
 curl https://raw.githubusercontent.com/danclegg/hc_deploy/feature/setup-sh/files/sshbanner > /etc/sshbanner
 sed -ie 's/#Banner none/Banner \/etc\/sshbanner/g' /etc/ssh/sshd_config
+
+# Restart SSH to load banner change
+service ssh restart
+
+# Set the timezone
+cp /usr/share/zoneinfo/America/Denver /etc/localtime
+
+# Add the `pi` user to the sudoers group
+usermod -aG sudo pi
+
+# set ntp
+curl https://raw.githubusercontent.com/danclegg/hc_deploy/feature/setup-sh/files/ntp.conf > /etc/ntp.conf
+apt -y install ntpdate
+systemctl stop ntp
+ntpdate-debian
+systemctl start ntp
+ntpq -p
