@@ -3,3 +3,5 @@ source ~/.profile
 alias ll="ls -la"
 alias PSPORT="netstat -tulpn | grep :"
 alias PS="ps -ef | grep -i"
+
+cd /home/pi

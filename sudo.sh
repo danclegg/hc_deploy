@@ -60,3 +60,10 @@ systemctl stop ntp
 ntpdate-debian
 systemctl start ntp
 ntpq -p
+
+# Install Git
+apt -y install git
+
+# Configure git email and user name for pull requests
+git config --global user.email "someuser@hcsystems.org"
+git config --global user.name "Some User"
