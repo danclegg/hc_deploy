@@ -11,8 +11,8 @@ export serial=`cat /proc/cpuinfo | grep Serial | cut -d ' ' -f 2`
 curl https://raw.githubusercontent.com/danclegg/hc_deploy/feature/setup-sh/files/keyboard > /etc/default/keyboard
 
 # Set hostname
-echo -e "hc_$serial" > /etc/hostname
-echo -e "127.0.1.1\thc_$serial" >> /etc/hosts
+echo -e "HC_$serial" > /etc/hostname
+echo -e "127.0.1.1\tHC_$serial" >> /etc/hosts
 
 # Install Salt-Minion on Pi and configure minion to talk to the salt-master
 wget -O - https://repo.saltstack.com/apt/debian/8/armhf/latest/SALTSTACK-GPG-KEY.pub | sudo apt-key add -
@@ -32,8 +32,8 @@ sudo apt-get -y install salt-minion
 cp /srv/files/minion /etc/salt/minion
 
 #PI_HOSTNAME=$(hostname)
-sed -i 's/\$PI_HOSTNAME/'$desired_hostname'/' /etc/salt/minion
-echo "$desired_hostname" >> /etc/salt/minion_id
+sed -i 's/\$PI_HOSTNAME/HC_'$serial'/' /etc/salt/minion
+echo "HC_$serial" >> /etc/salt/minion_id
 systemctl restart salt-minion
 
 # Patch the Dirty COW kernel vulnerability
