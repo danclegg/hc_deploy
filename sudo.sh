@@ -39,6 +39,12 @@ systemctl restart salt-minion
 # Patch the Dirty COW kernel vulnerability
 # apt -y install raspberrypi-kernel
 
+
+# Configure automatic login for the `pi` user
+mkdir -pv /etc/systemd/system/getty@tty1.service.d/
+curl https://raw.githubusercontent.com/byuoitav/raspi-deployment-microservice/master/files/autologin.conf > /etc/systemd/system/getty@tty1.service.d/autologin.conf
+systemctl enable getty@tty1.service
+
 # Enable SSH connections
 touch /boot/ssh
 curl https://raw.githubusercontent.com/danclegg/hc_deploy/feature/setup-sh/files/sshbanner > /etc/sshbanner
