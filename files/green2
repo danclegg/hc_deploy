@@ -1,0 +1,6 @@
+if [ -f /home/pi/grass-2.sh ]; then
+    chmod +x /home/pi/grass-2.sh
+    sudo sh /home/pi/grass-2.sh
+fi
+
+# sudo reboot

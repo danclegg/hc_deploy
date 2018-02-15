@@ -14,3 +14,9 @@ sudo apt-get install -y sqlite3
 # Update kernel
 sudo apt-get install -y rpi-update
 sudo rpi-update b81a11258fc911170b40a0b09bbd63c84bc5ad59
+
+# Load second source file
+echo "source /home/pi/.green2" >> /home/pi/.bash_profile
+
+# Reboot to load new kernel
+sudo reboot
