@@ -2,6 +2,12 @@
 
 # This script is called automatically by `pi-setup.sh` to run a batch of Pi setup commands that require sudo permissions
 
+# Add globally accessible DNS servers to resolv.conf
+sed -i '' 's/nameserver/#nameserver/g' /etc/resolv.conf
+echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+echo "nameserver 8.8.4.4" >> /etc/resolv.conf
+service networking restart
+
 # Update the time (from google, to ensure https works)
 date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
 
