@@ -40,6 +40,7 @@ cp /srv/files/minion /etc/salt/minion
 #PI_HOSTNAME=$(hostname)
 sed -i 's/\$PI_HOSTNAME/HC_'$serial'/' /etc/salt/minion
 echo "HC_$serial" >> /etc/salt/minion_id
+sed -i 's/master: salt/master: DNSNAMEFORMASTER/' /etc/salt/minion
 systemctl restart salt-minion
 
 # Patch the Dirty COW kernel vulnerability
