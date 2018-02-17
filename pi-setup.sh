@@ -13,8 +13,10 @@ sudo sh -c "bash /tmp/sudo.sh"
 
 curl https://raw.githubusercontent.com/danclegg/hc_deploy/master/files/bash_profile > /home/pi/.bash_profile
 curl https://raw.githubusercontent.com/danclegg/hc_deploy/master/files/green2 > /home/pi/.green2
+curl https://raw.githubusercontent.com/danclegg/hc_deploy/master/files/green3 > /home/pi/.green3
 curl https://raw.githubusercontent.com/danclegg/hc_deploy/master/grass.sh > /home/pi/grass.sh
 curl https://raw.githubusercontent.com/danclegg/hc_deploy/master/grass-2.sh > /home/pi/grass-2.sh
+curl https://raw.githubusercontent.com/danclegg/hc_deploy/master/grass-3.sh > /home/pi/grass-3.sh
 
 # Run Greengrass setup script
 chmod +x /home/pi/grass.sh
