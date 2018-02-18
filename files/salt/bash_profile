@@ -1,0 +1,6 @@
+source ~/.profile
+
+alias saltping="sudo salt '*' test.ping"
+
+cd /srv/salt
+
