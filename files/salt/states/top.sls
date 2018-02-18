@@ -1,0 +1,3 @@
+base:
+  'HC-*':
+    - cores.test
