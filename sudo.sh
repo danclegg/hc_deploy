@@ -2,6 +2,17 @@
 
 # This script is called automatically by `pi-setup.sh` to run a batch of Pi setup commands that require sudo permissions
 
+echo "Type the SSID (broadcast name) of the wifi network, followed by [ENTER]:"
+
+read -e SSID
+
+echo ""
+echo "Type the pre-shared key for the SSID for the $SSID network, followed by [ENTER]:"
+read -e SSID_pass
+
+echo $SSID
+echo $SSID_pass
+
 # Add globally accessible DNS servers to resolv.conf
 sed -i '' 's/nameserver/#nameserver/g' /etc/resolv.conf
 echo "nameserver 8.8.8.8" >> /etc/resolv.conf
@@ -14,7 +25,7 @@ date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' 
 export serial=`cat /proc/cpuinfo | grep Serial | cut -d ' ' -f 2`
 
 # Fix the keyboard layout
-curl https://raw.githubusercontent.com/danclegg/hc_deploy/feature/setup-sh/files/keyboard > /etc/default/keyboard
+curl https://raw.githubusercontent.com/danclegg/hc_deploy/master/files/keyboard > /etc/default/keyboard
 
 # Set hostname
 echo -e "HC-$serial" > /etc/hostname
@@ -23,7 +34,7 @@ echo -e "127.0.1.1\tHC-$serial" >> /etc/hosts
 
 # Install Salt-Minion on Pi and configure minion to talk to the salt-master
 wget -O - https://repo.saltstack.com/apt/debian/8/armhf/latest/SALTSTACK-GPG-KEY.pub | sudo apt-key add -
-curl https://raw.githubusercontent.com/danclegg/hc_deploy/feature/setup-sh/files/saltstack.list > /etc/apt/sources.list.d/saltstack.list
+curl https://raw.githubusercontent.com/danclegg/hc_deploy/master/files/saltstack.list > /etc/apt/sources.list.d/saltstack.list
 
 # Perform general updating
 apt update
@@ -53,9 +64,14 @@ mkdir -pv /etc/systemd/system/getty@tty1.service.d/
 curl https://raw.githubusercontent.com/byuoitav/raspi-deployment-microservice/master/files/autologin.conf > /etc/systemd/system/getty@tty1.service.d/autologin.conf
 systemctl enable getty@tty1.service
 
+# Setup wifi
+curl https://raw.githubusercontent.com/danclegg/hc_deploy/feature/wifi/files/wpa_supplicant > /boot/wpa_supplicant.conf
+sed -ie "s/YOURPASS/$SSID_pass/g" /etc/ssh/sshd_config
+sed -ie "s/YOURSSID/$SSID/g" /etc/ssh/sshd_config
+
 # Enable SSH connections
 touch /boot/ssh
-curl https://raw.githubusercontent.com/danclegg/hc_deploy/feature/setup-sh/files/sshbanner > /etc/sshbanner
+curl https://raw.githubusercontent.com/danclegg/hc_deploy/master/files/sshbanner > /etc/sshbanner
 sed -ie 's/#Banner none/Banner \/etc\/sshbanner/g' /etc/ssh/sshd_config
 
 # Restart SSH to load banner change
@@ -68,7 +84,7 @@ cp /usr/share/zoneinfo/America/Denver /etc/localtime
 usermod -aG sudo pi
 
 # set ntp
-curl https://raw.githubusercontent.com/danclegg/hc_deploy/feature/setup-sh/files/ntp.conf > /etc/ntp.conf
+curl https://raw.githubusercontent.com/danclegg/hc_deploy/master/files/ntp.conf > /etc/ntp.conf
 apt -y install ntpdate
 systemctl stop ntp
 ntpdate-debian
