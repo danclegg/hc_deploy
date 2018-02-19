@@ -65,9 +65,10 @@ curl https://raw.githubusercontent.com/byuoitav/raspi-deployment-microservice/ma
 systemctl enable getty@tty1.service
 
 # Setup wifi
-curl https://raw.githubusercontent.com/danclegg/hc_deploy/feature/wifi/files/wpa_supplicant > /boot/wpa_supplicant.conf
-sed -ie "s/YOURPASS/$SSID_pass/g" /etc/ssh/sshd_config
-sed -ie "s/YOURSSID/$SSID/g" /etc/ssh/sshd_config
+mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.bak
+curl https://raw.githubusercontent.com/danclegg/hc_deploy/feature/wifi/files/wpa_supplicant > /etc/wpa_supplicant/wpa_supplicant.conf
+sed -i "s/YOURPASS/$SSID_pass/g" /etc/wpa_supplicant/wpa_supplicant.conf
+sed -i "s/YOURSSID/$SSID/g" /etc/wpa_supplicant/wpa_supplicant.conf
 
 # Enable SSH connections
 touch /boot/ssh
