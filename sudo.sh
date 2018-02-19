@@ -66,9 +66,12 @@ systemctl enable getty@tty1.service
 
 # Setup wifi
 mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.bak
+cp /etc/network/interfaces /etc/network/interfaces.bak
 curl https://raw.githubusercontent.com/danclegg/hc_deploy/feature/wifi/files/wpa_supplicant > /etc/wpa_supplicant/wpa_supplicant.conf
+curl https://raw.githubusercontent.com/danclegg/hc_deploy/feature/wifi/files/interfaces > /etc/network/interfaces
 sed -i "s/YOURPASS/$SSID_pass/g" /etc/wpa_supplicant/wpa_supplicant.conf
 sed -i "s/YOURSSID/$SSID/g" /etc/wpa_supplicant/wpa_supplicant.conf
+ip link set wlan0 up
 
 # Enable SSH connections
 touch /boot/ssh
